@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQL Commands by Bhujbal A.S.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        header {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+        }
+        nav {
+            background: #2c3e50;
+            padding: 15px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            background: #34495e;
+            transition: all 0.3s;
+            font-size: 0.9em;
+        }
+        nav a:hover {
+            background: #667eea;
+            transform: translateY(-2px);
+        }
+        .content {
+            padding: 30px;
+        }
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #667eea;
+        }
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        h3 {
+            color: #34495e;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        .command-block {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .command-title {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+            margin-bottom: 10px;
+        }
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            margin: 10px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+        .supported {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #27ae60;
+            color: white;
+            border-radius: 5px;
+            font-size: 0.85em;
+            margin: 5px 0;
+        }
+        .not-supported {
+            display: inline-block;
+            padding: 5px 10px;
+            background: #e74c3c;
+            color: white;
+            border-radius: 5px;
+            font-size: 0.85em;
+            margin: 5px 0;
+        }
+        .alternative {
+            background: #fff3cd;
+            padding: 15px;
+            border-left: 4px solid #ffc107;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .note {
+            background: #d1ecf1;
+            padding: 15px;
+            border-left: 4px solid #17a2b8;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .description {
+            color: #555;
+            margin: 10px 0;
+        }
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+	nav {
+      position: fixed;     /* stays fixed when scrolling */
+      top: 130px;
+      width: 100%;         /* full width */
+      
+      color: white;
+      padding: 15px;
+      /*z-index: 1000;        stays above content */
+    }
+	header {
+      position: fixed;     /* stays fixed when scrolling */
+      top: 5px;
+      width: 100%;         /* full width */
+    
+      color: white;
+      padding: 15px;
+      /*z-index: 1000;        stays above content */
+    }
+	
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>📚 Complete SQL Commands Guide</h1>
+            <p class="subtitle">BY Bhujbal Akshay Shivlingayee</p>
+        </header>
+
+        <nav>
+            <a href="#ddl">DDL Commands</a>
+            <a href="#dml">DML Commands</a>
+            <a href="#dql">DQL Commands</a>
+            <a href="#dcl">DCL Commands</a>
+            <a href="#tcl">TCL Commands</a>
+            <a href="#constraints">Constraints</a>
+            <a href="#joins">Joins</a>
+            <a href="#functions">Functions</a>
+            <a href="#advanced">Advanced</a>
+        </nav>
+
+        <div class="content">
+            <!-- DDL Commands -->
+            <section id="ddl" class="section">
+                <h2>🔨 DDL (Data Definition Language) Commands</h2>
+                
+                <div class="command-block">
+                    <div class="command-title">CREATE - Create Database/Table</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <div class="description">Creates a new database or table</div>
+                    <pre>-- Create Database
+CREATE DATABASE school;
+
+-- Create Table
+CREATE TABLE students (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(100) NOT NULL,
+    age INT,
+    email VARCHAR(100) UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">ALTER - Modify Table Structure</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Add Column
+ALTER TABLE students ADD phone VARCHAR(15);
+ALTER TABLE students ADD COLUMN address TEXT AFTER name;
+
+-- Modify Column (change datatype)
+ALTER TABLE students MODIFY COLUMN age TINYINT;
+ALTER TABLE students MODIFY COLUMN name VARCHAR(150) NOT NULL;
+
+-- Change Column (rename + modify)
+ALTER TABLE students CHANGE COLUMN old_name new_name VARCHAR(100);
+ALTER TABLE students CHANGE phone mobile VARCHAR(20);
+
+-- Drop Column
+ALTER TABLE students DROP COLUMN phone;
+
+-- Rename Table
+ALTER TABLE students RENAME TO learners;
+
+-- Add Constraint
+ALTER TABLE students ADD CONSTRAINT uk_email UNIQUE (email);
+ALTER TABLE students ADD CONSTRAINT fk_dept FOREIGN KEY (dept_id) REFERENCES departments(id);
+
+-- Drop Constraint
+ALTER TABLE students DROP CONSTRAINT uk_email;
+ALTER TABLE students DROP FOREIGN KEY fk_dept;
+
+-- Add Primary Key
+ALTER TABLE students ADD PRIMARY KEY (id);
+
+-- Drop Primary Key
+ALTER TABLE students DROP PRIMARY KEY;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">DROP - Delete Database/Table</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Drop Table
+DROP TABLE students;
+
+-- Drop Database
+DROP DATABASE school;
+
+-- Drop if exists
+DROP TABLE IF EXISTS students;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">TRUNCATE - Remove All Records</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <div class="description">Deletes all rows but keeps structure (faster than DELETE)</div>
+                    <pre>TRUNCATE TABLE students;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">RENAME - Rename Table</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>RENAME TABLE old_name TO new_name;
+
+-- Multiple tables
+RENAME TABLE students TO learners,
+             courses TO subjects;</pre>
+                </div>
+            </section>
+
+            <!-- DML Commands -->
+            <section id="dml" class="section">
+                <h2>📝 DML (Data Manipulation Language) Commands</h2>
+                
+                <div class="command-block">
+                    <div class="command-title">INSERT - Add New Records</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Insert single row
+INSERT INTO students (name, age, email) 
+VALUES ('John Doe', 20, 'john@email.com');
+
+-- Insert multiple rows
+INSERT INTO students (name, age, email) VALUES
+('Jane Smith', 22, 'jane@email.com'),
+('Bob Johnson', 21, 'bob@email.com');
+
+-- Insert from another table
+INSERT INTO students_backup 
+SELECT * FROM students WHERE age > 18;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">UPDATE - Modify Existing Records</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Update single record
+UPDATE students 
+SET age = 21 
+WHERE id = 1;
+
+-- Update multiple columns
+UPDATE students 
+SET age = 23, email = 'newemail@email.com' 
+WHERE name = 'John Doe';
+
+-- Update with calculation
+UPDATE products 
+SET price = price * 1.1;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">DELETE - Remove Records</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Delete specific records
+DELETE FROM students WHERE age < 18;
+
+-- Delete all records (use TRUNCATE instead)
+DELETE FROM students;
+
+-- Delete with JOIN
+DELETE students FROM students
+JOIN enrollments ON students.id = enrollments.student_id
+WHERE enrollments.status = 'inactive';</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">MERGE / UPSERT</div>
+                    <span class="not-supported">✗ MERGE Not Supported in MySQL</span>
+                    <div class="alternative">
+                        <strong>MySQL Alternative:</strong> Use INSERT ... ON DUPLICATE KEY UPDATE
+                        <pre>-- MySQL equivalent (upsert)
+INSERT INTO students (id, name, age) 
+VALUES (1, 'John', 21)
+ON DUPLICATE KEY UPDATE 
+    name = VALUES(name), 
+    age = VALUES(age);
+
+-- Or use REPLACE
+REPLACE INTO students (id, name, age)
+VALUES (1, 'John', 21);</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DQL Commands -->
+            <section id="dql" class="section">
+                <h2>🔍 DQL (Data Query Language) Commands</h2>
+                
+                <div class="command-block">
+                    <div class="command-title">SELECT - Retrieve Data</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Basic select
+SELECT * FROM students;
+
+-- Select specific columns
+SELECT name, age FROM students;
+
+-- With WHERE clause
+SELECT * FROM students WHERE age > 20;
+
+-- With ORDER BY
+SELECT * FROM students ORDER BY age DESC;
+
+-- With LIMIT
+SELECT * FROM students LIMIT 10;
+
+-- With OFFSET (pagination)
+SELECT * FROM students LIMIT 10 OFFSET 20;
+
+-- DISTINCT values
+SELECT DISTINCT age FROM students;
+
+-- Aggregate functions
+SELECT COUNT(*), AVG(age), MAX(age), MIN(age), SUM(age)
+FROM students;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">WHERE Clause Operators</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Comparison operators
+SELECT * FROM students WHERE age = 20;
+SELECT * FROM students WHERE age != 20;
+SELECT * FROM students WHERE age > 20;
+SELECT * FROM students WHERE age >= 20;
+SELECT * FROM students WHERE age < 20;
+SELECT * FROM students WHERE age <= 20;
+
+-- BETWEEN
+SELECT * FROM students WHERE age BETWEEN 18 AND 25;
+
+-- IN
+SELECT * FROM students WHERE age IN (18, 20, 22);
+
+-- LIKE (pattern matching)
+SELECT * FROM students WHERE name LIKE 'J%';
+SELECT * FROM students WHERE name LIKE '%son';
+SELECT * FROM students WHERE name LIKE '%oh%';
+
+-- IS NULL / IS NOT NULL
+SELECT * FROM students WHERE email IS NULL;
+SELECT * FROM students WHERE email IS NOT NULL;
+
+-- AND, OR, NOT
+SELECT * FROM students WHERE age > 20 AND name LIKE 'J%';
+SELECT * FROM students WHERE age < 18 OR age > 25;
+SELECT * FROM students WHERE NOT age = 20;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">GROUP BY & HAVING</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Group by
+SELECT age, COUNT(*) as count 
+FROM students 
+GROUP BY age;
+
+-- Having (filter groups)
+SELECT age, COUNT(*) as count 
+FROM students 
+GROUP BY age 
+HAVING COUNT(*) > 5;
+
+-- Multiple columns
+SELECT age, gender, COUNT(*) 
+FROM students 
+GROUP BY age, gender;</pre>
+                </div>
+            </section>
+
+            <!-- DCL Commands -->
+            <section id="dcl" class="section">
+                <h2>🔐 DCL (Data Control Language) Commands</h2>
+                
+                <div class="command-block">
+                    <div class="command-title">GRANT - Give Permissions</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Grant all privileges
+GRANT ALL PRIVILEGES ON school.* TO 'username'@'localhost';
+
+-- Grant specific privileges
+GRANT SELECT, INSERT, UPDATE ON school.students TO 'username'@'localhost';
+
+-- Grant with grant option
+GRANT SELECT ON school.* TO 'username'@'localhost' WITH GRANT OPTION;
+
+-- Apply changes
+FLUSH PRIVILEGES;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">REVOKE - Remove Permissions</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Revoke specific privileges
+REVOKE INSERT, UPDATE ON school.students FROM 'username'@'localhost';
+
+-- Revoke all privileges
+REVOKE ALL PRIVILEGES ON school.* FROM 'username'@'localhost';
+
+-- Apply changes
+FLUSH PRIVILEGES;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">CREATE USER & DROP USER</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Create user
+CREATE USER 'newuser'@'localhost' IDENTIFIED BY 'password';
+
+-- Drop user
+DROP USER 'username'@'localhost';
+
+-- Change password
+ALTER USER 'username'@'localhost' IDENTIFIED BY 'newpassword';</pre>
+                </div>
+            </section>
+
+            <!-- TCL Commands -->
+            <section id="tcl" class="section">
+                <h2>🔄 TCL (Transaction Control Language) Commands</h2>
+                
+                <div class="command-block">
+                    <div class="command-title">START TRANSACTION / BEGIN</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Start transaction
+START TRANSACTION;
+-- or
+BEGIN;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">COMMIT - Save Changes</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>START TRANSACTION;
+
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+
+COMMIT; -- Save all changes</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">ROLLBACK - Undo Changes</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>START TRANSACTION;
+
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+
+ROLLBACK; -- Undo all changes</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">SAVEPOINT</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>START TRANSACTION;
+
+UPDATE accounts SET balance = balance - 100 WHERE id = 1;
+SAVEPOINT sp1;
+
+UPDATE accounts SET balance = balance + 100 WHERE id = 2;
+SAVEPOINT sp2;
+
+ROLLBACK TO sp1; -- Rollback to savepoint
+COMMIT;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">SET AUTOCOMMIT</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Disable autocommit
+SET AUTOCOMMIT = 0;
+
+-- Enable autocommit
+SET AUTOCOMMIT = 1;</pre>
+                </div>
+            </section>
+
+            <!-- Constraints -->
+            <section id="constraints" class="section">
+                <h2>🔒 Constraints</h2>
+                
+                <div class="command-block">
+                    <div class="command-title">PRIMARY KEY</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>CREATE TABLE students (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    -- or
+    id INT AUTO_INCREMENT,
+    name VARCHAR(100),
+    PRIMARY KEY (id)
+    -- or composite key
+    -- PRIMARY KEY (id, name)
+);</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">FOREIGN KEY</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>CREATE TABLE enrollments (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    student_id INT,
+    course_id INT,
+    FOREIGN KEY (student_id) REFERENCES students(id)
+        ON DELETE CASCADE
+        ON UPDATE CASCADE,
+    FOREIGN KEY (course_id) REFERENCES courses(id)
+);</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">UNIQUE</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>CREATE TABLE students (
+    id INT PRIMARY KEY,
+    email VARCHAR(100) UNIQUE,
+    phone VARCHAR(15),
+    UNIQUE (phone)
+);</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">NOT NULL</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL,
+    age INT NOT NULL
+);</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">CHECK</div>
+                    <span class="supported">✓ Supported in MySQL 8.0.16+</span>
+                    <div class="note">
+                        <strong>Note:</strong> CHECK constraints are only enforced in MySQL 8.0.16 and later. In earlier versions, they are parsed but ignored.
+                    </div>
+                    <pre>CREATE TABLE students (
+    id INT PRIMARY KEY,
+    age INT CHECK (age >= 18),
+    grade CHAR(1) CHECK (grade IN ('A', 'B', 'C', 'D', 'F'))
+);</pre>
+                    <div class="alternative">
+                        <strong>Alternative for older MySQL:</strong> Use triggers or application-level validation
+                    </div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">DEFAULT</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>CREATE TABLE students (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    status VARCHAR(20) DEFAULT 'active',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);</pre>
+                </div>
+            </section>
+
+            <!-- Joins -->
+            <section id="joins" class="section">
+                <h2>🔗 JOIN Operations</h2>
+                
+                <div class="command-block">
+                    <div class="command-title">INNER JOIN</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>SELECT students.name, courses.title
+FROM students
+INNER JOIN enrollments ON students.id = enrollments.student_id
+INNER JOIN courses ON enrollments.course_id = courses.id;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">LEFT JOIN (LEFT OUTER JOIN)</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>SELECT students.name, courses.title
+FROM students
+LEFT JOIN enrollments ON students.id = enrollments.student_id
+LEFT JOIN courses ON enrollments.course_id = courses.id;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">RIGHT JOIN (RIGHT OUTER JOIN)</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>SELECT students.name, courses.title
+FROM students
+RIGHT JOIN enrollments ON students.id = enrollments.student_id;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">CROSS JOIN</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>SELECT students.name, courses.title
+FROM students
+CROSS JOIN courses;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">SELF JOIN</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>SELECT e1.name AS employee, e2.name AS manager
+FROM employees e1
+LEFT JOIN employees e2 ON e1.manager_id = e2.id;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">FULL OUTER JOIN</div>
+                    <span class="not-supported">✗ Not Supported in MySQL</span>
+                    <div class="alternative">
+                        <strong>MySQL Alternative:</strong> Use UNION of LEFT and RIGHT JOIN
+                        <pre>SELECT students.name, courses.title
+FROM students
+LEFT JOIN enrollments ON students.id = enrollments.student_id
+UNION
+SELECT students.name, courses.title
+FROM students
+RIGHT JOIN enrollments ON students.id = enrollments.student_id;</pre>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Functions -->
+            <section id="functions" class="section">
+                <h2>🧮 Built-in Functions</h2>
+                
+                <h3>String Functions</h3>
+                <div class="command-block">
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- CONCAT
+SELECT CONCAT(first_name, ' ', last_name) AS full_name FROM students;
+
+-- UPPER / LOWER
+SELECT UPPER(name), LOWER(email) FROM students;
+
+-- LENGTH / CHAR_LENGTH
+SELECT LENGTH(name), CHAR_LENGTH(name) FROM students;
+
+-- SUBSTRING
+SELECT SUBSTRING(name, 1, 5) FROM students;
+
+-- TRIM / LTRIM / RTRIM
+SELECT TRIM(name), LTRIM(name), RTRIM(name) FROM students;
+
+-- REPLACE
+SELECT REPLACE(email, '@old.com', '@new.com') FROM students;
+
+-- LEFT / RIGHT
+SELECT LEFT(name, 3), RIGHT(name, 3) FROM students;</pre>
+                </div>
+
+                <h3>Numeric Functions</h3>
+                <div class="command-block">
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- ROUND / CEIL / FLOOR
+SELECT ROUND(price, 2), CEIL(price), FLOOR(price) FROM products;
+
+-- ABS / POWER / SQRT
+SELECT ABS(-10), POWER(2, 3), SQRT(16);
+
+-- MOD
+SELECT MOD(10, 3);
+
+-- RAND
+SELECT RAND(); -- Random between 0 and 1
+SELECT FLOOR(RAND() * 100); -- Random integer 0-99</pre>
+                </div>
+
+                <h3>Date & Time Functions</h3>
+                <div class="command-block">
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- NOW / CURDATE / CURTIME
+SELECT NOW(), CURDATE(), CURTIME();
+
+-- DATE_FORMAT
+SELECT DATE_FORMAT(created_at, '%Y-%m-%d') FROM students;
+
+-- YEAR / MONTH / DAY
+SELECT YEAR(created_at), MONTH(created_at), DAY(created_at) FROM students;
+
+-- DATE_ADD / DATE_SUB
+SELECT DATE_ADD(NOW(), INTERVAL 7 DAY);
+SELECT DATE_SUB(NOW(), INTERVAL 1 MONTH);
+
+-- DATEDIFF
+SELECT DATEDIFF(NOW(), created_at) AS days_since FROM students;
+
+-- TIMESTAMPDIFF
+SELECT TIMESTAMPDIFF(YEAR, birth_date, NOW()) AS age FROM students;</pre>
+                </div>
+
+                <h3>Aggregate Functions</h3>
+                <div class="command-block">
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- COUNT / SUM / AVG / MIN / MAX
+SELECT COUNT(*), SUM(price), AVG(price), MIN(price), MAX(price)
+FROM products;
+
+-- GROUP_CONCAT
+SELECT department, GROUP_CONCAT(name SEPARATOR ', ') AS employees
+FROM employees
+GROUP BY department;</pre>
+                </div>
+
+                <h3>Conditional Functions</h3>
+                <div class="command-block">
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- IF
+SELECT name, IF(age >= 18, 'Adult', 'Minor') AS category FROM students;
+
+-- CASE
+SELECT name,
+    CASE 
+        WHEN age < 18 THEN 'Minor'
+        WHEN age BETWEEN 18 AND 25 THEN 'Young Adult'
+        ELSE 'Adult'
+    END AS category
+FROM students;
+
+-- COALESCE (return first non-null)
+SELECT COALESCE(phone, email, 'No contact') FROM students;
+
+-- IFNULL / NULLIF
+SELECT IFNULL(phone, 'N/A') FROM students;
+SELECT NULLIF(status, 'deleted') FROM students;</pre>
+                </div>
+            </section>
+
+            <!-- Advanced -->
+            <section id="advanced" class="section">
+                <h2>🚀 Advanced SQL Commands</h2>
+                
+                <div class="command-block">
+                    <div class="command-title">Subqueries</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- In WHERE clause
+SELECT name FROM students 
+WHERE id IN (SELECT student_id FROM enrollments WHERE course_id = 101);
+
+-- In FROM clause
+SELECT avg_age.department, avg_age.average
+FROM (SELECT department, AVG(age) AS average FROM employees GROUP BY department) AS avg_age;
+
+-- Correlated subquery
+SELECT name FROM students s
+WHERE age > (SELECT AVG(age) FROM students WHERE department = s.department);</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">UNION / UNION ALL</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- UNION (removes duplicates)
+SELECT name FROM students
+UNION
+SELECT name FROM teachers;
+
+-- UNION ALL (keeps duplicates)
+SELECT name FROM students
+UNION ALL
+SELECT name FROM teachers;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Views</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Create view
+CREATE VIEW student_courses AS
+SELECT s.name, c.title
+FROM students s
+JOIN enrollments e ON s.id = e.student_id
+JOIN courses c ON e.course_id = c.id;
+
+-- Use view
+SELECT * FROM student_courses;
+
+-- Drop view
+DROP VIEW student_courses;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Indexes</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Create index
+CREATE INDEX idx_name ON students(name);
+
+-- Create unique index
+CREATE UNIQUE INDEX idx_email ON students(email);
+
+-- Create composite index
+CREATE INDEX idx_name_age ON students(name, age);
+
+-- Show indexes
+SHOW INDEX FROM students;
+
+-- Drop index
+DROP INDEX idx_name ON students;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Stored Procedures</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Create procedure
+DELIMITER //
+CREATE PROCEDURE GetStudentsByAge(IN min_age INT)
+BEGIN
+    SELECT * FROM students WHERE age >= min_age;
+END //
+DELIMITER ;
+
+-- Call procedure
+CALL GetStudentsByAge(18);
+
+-- Drop procedure
+DROP PROCEDURE GetStudentsByAge;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Functions (User-Defined)</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Create function
+DELIMITER //
+CREATE FUNCTION CalculateAge(birth_date DATE)
+RETURNS INT
+DETERMINISTIC
+BEGIN
+    RETURN TIMESTAMPDIFF(YEAR, birth_date, CURDATE());
+END //
+DELIMITER ;
+
+-- Use function
+SELECT name, CalculateAge(birth_date) AS age FROM students;
+
+-- Drop function
+DROP FUNCTION CalculateAge;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Triggers</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Create trigger
+DELIMITER //
+CREATE TRIGGER before_student_insert
+BEFORE INSERT ON students
+FOR EACH ROW
+BEGIN
+    SET NEW.created_at = NOW();
+END //
+DELIMITER ;
+
+-- Show triggers
+SHOW TRIGGERS;
+
+-- Drop trigger
+DROP TRIGGER before_student_insert;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Window Functions (Analytical Functions)</div>
+                    <span class="supported">✓ Supported in MySQL 8.0+</span>
+                    <div class="note">
+                        <strong>Note:</strong> Window functions are only available in MySQL 8.0 and later versions.
+                    </div>
+                    <pre>-- ROW_NUMBER
+SELECT name, age, 
+       ROW_NUMBER() OVER (ORDER BY age DESC) AS row_num
+FROM students;
+
+-- RANK / DENSE_RANK
+SELECT name, score,
+       RANK() OVER (ORDER BY score DESC) AS rank,
+       DENSE_RANK() OVER (ORDER BY score DESC) AS dense_rank
+FROM students;
+
+-- PARTITION BY
+SELECT department, name, salary,
+       ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC) AS dept_rank
+FROM employees;
+
+-- LAG / LEAD
+SELECT name, salary,
+       LAG(salary) OVER (ORDER BY id) AS prev_salary,
+       LEAD(salary) OVER (ORDER BY id) AS next_salary
+FROM employees;
+
+-- NTILE (divide into groups)
+SELECT name, score,
+       NTILE(4) OVER (ORDER BY score DESC) AS quartile
+FROM students;</pre>
+                    <div class="alternative">
+                        <strong>Alternative for MySQL 5.x:</strong> Use variables for row numbering
+                        <pre>SET @row_num = 0;
+SELECT name, age, (@row_num := @row_num + 1) AS row_num
+FROM students
+ORDER BY age DESC;</pre>
+                    </div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Common Table Expressions (CTE)</div>
+                    <span class="supported">✓ Supported in MySQL 8.0+</span>
+                    <div class="note">
+                        <strong>Note:</strong> CTEs are only available in MySQL 8.0 and later versions.
+                    </div>
+                    <pre>-- Basic CTE
+WITH student_avg AS (
+    SELECT department, AVG(score) AS avg_score
+    FROM students
+    GROUP BY department
+)
+SELECT * FROM student_avg WHERE avg_score > 80;
+
+-- Multiple CTEs
+WITH 
+    high_scorers AS (SELECT * FROM students WHERE score > 90),
+    low_scorers AS (SELECT * FROM students WHERE score < 50)
+SELECT 'High' AS category, COUNT(*) FROM high_scorers
+UNION ALL
+SELECT 'Low' AS category, COUNT(*) FROM low_scorers;
+
+-- Recursive CTE
+WITH RECURSIVE numbers AS (
+    SELECT 1 AS n
+    UNION ALL
+    SELECT n + 1 FROM numbers WHERE n < 10
+)
+SELECT * FROM numbers;</pre>
+                    <div class="alternative">
+                        <strong>Alternative for MySQL 5.x:</strong> Use subqueries or temporary tables
+                        <pre>-- Using subquery
+SELECT * FROM (
+    SELECT department, AVG(score) AS avg_score
+    FROM students
+    GROUP BY department
+) AS student_avg
+WHERE avg_score > 80;
+
+-- Using temporary table
+CREATE TEMPORARY TABLE student_avg AS
+SELECT department, AVG(score) AS avg_score
+FROM students
+GROUP BY department;
+
+SELECT * FROM student_avg WHERE avg_score > 80;
+DROP TEMPORARY TABLE student_avg;</pre>
+                    </div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">EXPLAIN - Query Analysis</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <div class="description">Analyze query execution plan and optimize performance</div>
+                    <pre>-- Basic explain
+EXPLAIN SELECT * FROM students WHERE age > 20;
+
+-- Extended explain
+EXPLAIN EXTENDED SELECT * FROM students WHERE age > 20;
+
+-- Format as JSON (MySQL 5.6+)
+EXPLAIN FORMAT=JSON SELECT * FROM students WHERE age > 20;
+
+-- Analyze actual execution (MySQL 8.0+)
+EXPLAIN ANALYZE SELECT * FROM students WHERE age > 20;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">IMPORT/EXPORT Data</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Export to CSV (using SELECT INTO OUTFILE)
+SELECT * FROM students
+INTO OUTFILE '/tmp/students.csv'
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n';
+
+-- Import from CSV (using LOAD DATA INFILE)
+LOAD DATA INFILE '/tmp/students.csv'
+INTO TABLE students
+FIELDS TERMINATED BY ','
+ENCLOSED BY '"'
+LINES TERMINATED BY '\n'
+IGNORE 1 ROWS;
+
+-- Using mysqldump (command line)
+-- mysqldump -u username -p database_name > backup.sql
+
+-- Restore from dump
+-- mysql -u username -p database_name < backup.sql</pre>
+                    <div class="note">
+                        <strong>Note:</strong> In XAMPP/phpMyAdmin, use the Import/Export tabs in the interface for easier data transfer.
+                    </div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">SHOW Commands</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Show databases
+SHOW DATABASES;
+
+-- Show tables
+SHOW TABLES;
+
+-- Show table structure
+SHOW COLUMNS FROM students;
+-- or
+DESCRIBE students;
+-- or
+DESC students;
+
+-- Show create statement
+SHOW CREATE TABLE students;
+SHOW CREATE DATABASE school;
+
+-- Show indexes
+SHOW INDEX FROM students;
+
+-- Show table status
+SHOW TABLE STATUS FROM school;
+
+-- Show processes
+SHOW PROCESSLIST;
+
+-- Show privileges
+SHOW GRANTS FOR 'username'@'localhost';
+
+-- Show variables
+SHOW VARIABLES LIKE 'max_connections';
+
+-- Show status
+SHOW STATUS LIKE 'threads_connected';</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">DESCRIBE/DESC - Table Information</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Describe table structure
+DESCRIBE students;
+-- or
+DESC students;
+
+-- Get detailed information
+SHOW FULL COLUMNS FROM students;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">USE - Select Database</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Switch to a database
+USE school;
+
+-- Check current database
+SELECT DATABASE();</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">SET - Variables and Settings</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- User variables
+SET @name = 'John';
+SET @age = 25;
+SELECT @name, @age;
+
+-- Session variables
+SET SESSION sql_mode = 'STRICT_TRANS_TABLES';
+SET @@session.time_zone = '+05:30';
+
+-- Global variables
+SET GLOBAL max_connections = 200;
+
+-- Multiple assignments
+SET @x = 1, @y = 2, @z = 3;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">LOCK/UNLOCK Tables</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Lock tables for reading
+LOCK TABLES students READ;
+
+-- Lock tables for writing
+LOCK TABLES students WRITE;
+
+-- Lock multiple tables
+LOCK TABLES students READ, courses WRITE;
+
+-- Unlock all tables
+UNLOCK TABLES;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">REGEXP - Regular Expressions</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Match pattern
+SELECT * FROM students WHERE name REGEXP '^J';
+
+-- Case insensitive
+SELECT * FROM students WHERE name REGEXP BINARY 'john';
+
+-- Multiple patterns
+SELECT * FROM students WHERE email REGEXP '@gmail|@yahoo';
+
+-- RLIKE (alias for REGEXP)
+SELECT * FROM students WHERE name RLIKE '[0-9]';</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">PIVOT Operations</div>
+                    <span class="not-supported">✗ No Native PIVOT in MySQL</span>
+                    <div class="alternative">
+                        <strong>MySQL Alternative:</strong> Use CASE statements with GROUP BY
+                        <pre>-- Pivot example: Convert rows to columns
+SELECT 
+    department,
+    SUM(CASE WHEN gender = 'M' THEN 1 ELSE 0 END) AS male_count,
+    SUM(CASE WHEN gender = 'F' THEN 1 ELSE 0 END) AS female_count
+FROM students
+GROUP BY department;
+
+-- Dynamic pivot using GROUP_CONCAT
+SELECT department,
+    GROUP_CONCAT(
+        CASE WHEN age = 18 THEN name END
+    ) AS age_18_students,
+    GROUP_CONCAT(
+        CASE WHEN age = 19 THEN name END
+    ) AS age_19_students
+FROM students
+GROUP BY department;</pre>
+                    </div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">INTERSECT / EXCEPT</div>
+                    <span class="not-supported">✗ Not Supported in MySQL</span>
+                    <div class="alternative">
+                        <strong>MySQL Alternative for INTERSECT:</strong> Use INNER JOIN or IN
+                        <pre>-- INTERSECT alternative
+SELECT DISTINCT name FROM students
+WHERE name IN (SELECT name FROM teachers);
+
+-- Or using JOIN
+SELECT DISTINCT s.name
+FROM students s
+INNER JOIN teachers t ON s.name = t.name;</pre>
+                    </div>
+                    <div class="alternative">
+                        <strong>MySQL Alternative for EXCEPT:</strong> Use NOT IN or LEFT JOIN
+                        <pre>-- EXCEPT alternative (students not in teachers)
+SELECT name FROM students
+WHERE name NOT IN (SELECT name FROM teachers);
+
+-- Or using LEFT JOIN
+SELECT s.name
+FROM students s
+LEFT JOIN teachers t ON s.name = t.name
+WHERE t.name IS NULL;</pre>
+                    </div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">JSON Functions (MySQL 5.7+)</div>
+                    <span class="supported">✓ Supported in MySQL 5.7+</span>
+                    <pre>-- Create JSON column
+CREATE TABLE users (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    metadata JSON
+);
+
+-- Insert JSON data
+INSERT INTO users (id, name, metadata)
+VALUES (1, 'John', '{"age": 25, "city": "New York"}');
+
+-- Extract JSON data
+SELECT name, JSON_EXTRACT(metadata, '$.age') AS age FROM users;
+-- or shorthand
+SELECT name, metadata->'$.age' AS age FROM users;
+
+-- Extract and unquote
+SELECT name, metadata->>'$.city' AS city FROM users;
+
+-- JSON functions
+SELECT JSON_OBJECT('name', 'John', 'age', 25);
+SELECT JSON_ARRAY(1, 2, 3, 'test');
+SELECT JSON_KEYS('{"a": 1, "b": 2}');
+SELECT JSON_LENGTH('[1, 2, 3, 4]');</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Events (Scheduled Tasks)</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Enable event scheduler
+SET GLOBAL event_scheduler = ON;
+
+-- Create event
+CREATE EVENT cleanup_old_data
+ON SCHEDULE EVERY 1 DAY
+STARTS '2025-01-01 00:00:00'
+DO
+    DELETE FROM logs WHERE created_at < DATE_SUB(NOW(), INTERVAL 30 DAY);
+
+-- Create one-time event
+CREATE EVENT one_time_task
+ON SCHEDULE AT '2025-12-31 23:59:59'
+DO
+    INSERT INTO yearly_summary SELECT * FROM daily_data;
+
+-- Show events
+SHOW EVENTS;
+
+-- Drop event
+DROP EVENT cleanup_old_data;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Partitioning</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- RANGE partitioning
+CREATE TABLE sales (
+    id INT,
+    sale_date DATE,
+    amount DECIMAL(10,2)
+)
+PARTITION BY RANGE (YEAR(sale_date)) (
+    PARTITION p2020 VALUES LESS THAN (2021),
+    PARTITION p2021 VALUES LESS THAN (2022),
+    PARTITION p2022 VALUES LESS THAN (2023),
+    PARTITION p_future VALUES LESS THAN MAXVALUE
+);
+
+-- LIST partitioning
+CREATE TABLE employees (
+    id INT,
+    name VARCHAR(100),
+    department VARCHAR(50)
+)
+PARTITION BY LIST COLUMNS(department) (
+    PARTITION p_sales VALUES IN ('Sales', 'Marketing'),
+    PARTITION p_tech VALUES IN ('IT', 'Development'),
+    PARTITION p_other VALUES IN ('HR', 'Finance')
+);
+
+-- HASH partitioning
+CREATE TABLE customers (
+    id INT,
+    name VARCHAR(100)
+)
+PARTITION BY HASH(id)
+PARTITIONS 4;
+
+-- Show partitions
+SELECT * FROM INFORMATION_SCHEMA.PARTITIONS 
+WHERE TABLE_NAME = 'sales';</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Performance & Optimization Tips</div>
+                    <span class="supported">✓ Best Practices for MySQL</span>
+                    <div class="note">
+                        <strong>Key Performance Tips:</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>Always use indexes on columns in WHERE, JOIN, and ORDER BY clauses</li>
+                            <li>Use EXPLAIN to analyze query performance</li>
+                            <li>Avoid SELECT * - specify only needed columns</li>
+                            <li>Use LIMIT for large result sets</li>
+                            <li>Use appropriate data types (TINYINT instead of INT for small numbers)</li>
+                            <li>Use JOIN instead of subqueries when possible</li>
+                            <li>Enable query cache for frequently accessed data</li>
+                            <li>Use prepared statements to prevent SQL injection</li>
+                            <li>Regular database maintenance (OPTIMIZE TABLE, ANALYZE TABLE)</li>
+                        </ul>
+                    </div>
+                    <pre>-- Optimize table
+OPTIMIZE TABLE students;
+
+-- Analyze table
+ANALYZE TABLE students;
+
+-- Check table
+CHECK TABLE students;
+
+-- Repair table
+REPAIR TABLE students;
+
+-- Show table size
+SELECT 
+    table_name,
+    ROUND(((data_length + index_length) / 1024 / 1024), 2) AS "Size (MB)"
+FROM information_schema.TABLES
+WHERE table_schema = 'school'
+ORDER BY (data_length + index_length) DESC;</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Prepared Statements</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <div class="description">Secure way to execute queries and prevent SQL injection</div>
+                    <pre>-- Prepare statement
+PREPARE stmt FROM 'SELECT * FROM students WHERE age > ?';
+
+-- Set variable
+SET @age = 18;
+
+-- Execute
+EXECUTE stmt USING @age;
+
+-- Deallocate
+DEALLOCATE PREPARE stmt;
+
+-- Multiple parameters
+PREPARE stmt2 FROM 'INSERT INTO students (name, age) VALUES (?, ?)';
+SET @name = 'John', @age = 20;
+EXECUTE stmt2 USING @name, @age;
+DEALLOCATE PREPARE stmt2;</pre>
+                </div>
+            </section>
+
+            <!-- Additional MySQL Specific Features -->
+            <section id="mysql-specific" class="section">
+                <h2>⚙️ MySQL Specific Features</h2>
+                
+                <div class="command-block">
+                    <div class="command-title">Storage Engines</div>
+                    <span class="supported">✓ MySQL Specific</span>
+                    <pre>-- Show available engines
+SHOW ENGINES;
+
+-- Create table with specific engine
+CREATE TABLE products (
+    id INT PRIMARY KEY,
+    name VARCHAR(100)
+) ENGINE=InnoDB;
+
+-- Change engine
+ALTER TABLE products ENGINE=MyISAM;
+
+-- Show table engine
+SHOW TABLE STATUS WHERE Name = 'products';</pre>
+                    <div class="note">
+                        <strong>Common Engines:</strong><br>
+                        • InnoDB: Default, supports transactions, foreign keys, row-level locking<br>
+                        • MyISAM: Fast reads, no transactions, table-level locking<br>
+                        • MEMORY: Fastest, data stored in RAM (temporary)
+                    </div>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Character Sets & Collation</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Show character sets
+SHOW CHARACTER SET;
+
+-- Show collations
+SHOW COLLATION;
+
+-- Set database charset
+CREATE DATABASE school CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Set table charset
+CREATE TABLE students (
+    id INT,
+    name VARCHAR(100)
+) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Set column charset
+ALTER TABLE students 
+MODIFY name VARCHAR(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Show current settings
+SHOW VARIABLES LIKE 'character_set%';
+SHOW VARIABLES LIKE 'collation%';</pre>
+                </div>
+
+                <div class="command-block">
+                    <div class="command-title">Full-Text Search</div>
+                    <span class="supported">✓ Fully Supported in MySQL</span>
+                    <pre>-- Create fulltext index
+CREATE FULLTEXT INDEX idx_content ON articles(title, body);
+
+-- Or add to existing table
+ALTER TABLE articles ADD FULLTEXT(title, body);
+
+-- Natural language search
+SELECT * FROM articles
+WHERE MATCH(title, body) AGAINST('mysql database');
+
+-- Boolean search
+SELECT * FROM articles
+WHERE MATCH(title, body) AGAINST('+mysql -oracle' IN BOOLEAN MODE);
+
+-- Query expansion
+SELECT * FROM articles
+WHERE MATCH(title, body) AGAINST('database' WITH QUERY EXPANSION);</pre>
+                </div>
+            </section>
+        </div>
+
+        <footer>
+            <p>Created by Bhujbal Akshay Shivling</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">💡 Tip: Use CTRL+F to search for specific commands</p>
+        </footer>
+    </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Highlight code blocks on click for easy copying
+        document.querySelectorAll('pre').forEach(block => {
+            block.addEventListener('click', function() {
+                const selection = window.getSelection();
+                const range = document.createRange();
+                range.selectNodeContents(this);
+                selection.removeAllRanges();
+                selection.addRange(range);
+            });
+            
+            // Add copy indication
+            block.style.cursor = 'pointer';
+            block.title = 'Click to select all code';
+        });
+    </script>
+</body>
+</html> 
